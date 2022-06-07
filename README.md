@@ -50,9 +50,9 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 2. <img src="images\chapter_2\day_3\dictionary.PNG"></img>
 3. The force unwrap will get the value of the optional if it exists... 
 	<img src="images\chapter_2\day_3\succes_unwrap.PNG"></img>
-4. ...or it will panic and abort if it doesn’t.
+   ...or it will panic and abort if it doesn’t.
 	<img src="images\chapter_2\day_3\panic.PNG"></img>
-5. **_What the error message means, Why we're getting this error, How to fix it_**
+4. **_What the error message means, Why we're getting this error, How to fix it_**
 	<img src="images\chapter_2\day_3\error.PNG"></img>
 
 * Type mismatch error, because the expected string was _"String"_, but you got the optional string _"String?_
