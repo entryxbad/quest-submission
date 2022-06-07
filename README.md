@@ -55,7 +55,7 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 4. **_What the error message means, Why we're getting this error, How to fix it_**
 	<img src="images\chapter_2\day_3\error.PNG"></img>
 
-* Type mismatch error, because the expected string was _"String"_, but you got the optional string _"String?_
+* Type mismatch error, because the expected string was _"String"_, but you got the optional string _"String?"_
 * Because the dictionary returns the value we are accessing with an _optional type_.
 * This error can be corrected by using the _force-unwrap operator_. Put the _"!"_ operator at the end of the _return_ string to unwrap the optional type and return the actual value.
 	<img src="images\chapter_2\day_3\success.PNG"></img>
