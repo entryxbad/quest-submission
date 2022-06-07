@@ -26,5 +26,36 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 <h1>Chapter 2</h1>
 <h2>Day 1</h2>
 
-1. <img src="images\contract_JT.PNG"></img>
-2. <img src="images\script.PNG"></img>
+1. <img src="images\chapter_2\day_1\contract_JT.PNG"></img>
+2. <img src="images\chapter_2\day_1\script.PNG"></img>
+
+<h2>Day 2</h2>
+
+1. We don't call _changeGreeting_ in the script because the script only allows you to view the information, but cannot change it.
+2. _AuthAccount_ gives access to the data to the account of the user signing the transaction.
+3. _prepare_ phase allows you to access the user's account data. What _execute_ phase cannot do, but _execute_ phase can call functions to change data in the blockchain.
+4. Added two new things inside contract. 
+* Added var _myNumber_ and function _updateMyNumber_.
+	<img src="images\chapter_2\day_2\init_myNimber.PNG"></img>
+* Added a script that reads _myNumber_.
+	<img src="images\chapter_2\day_2\script_myNumber.PNG"></img>
+* Added transaction.
+	<img src="images\chapter_2\day_2\transaction_number.PNG"></img>
+	<img src="images\chapter_2\day_2\enter_newNumber.PNG"></img>
+	<img src="images\chapter_2\day_2\answer.PNG"></img>
+
+<h2>Day 3</h2>
+
+1. <img src="images\chapter_2\day_3\people.PNG"></img>
+2. <img src="images\chapter_2\day_3\dictionary.PNG"></img>
+3. The force unwrap will get the value of the optional if it exists... 
+	<img src="images\chapter_2\day_3\succes_unwrap.PNG"></img>
+4. ...or it will panic and abort if it doesn’t.
+	<img src="images\chapter_2\day_3\panic.PNG"></img>
+5. **_What the error message means, Why we're getting this error, How to fix it_**
+	<img src="images\chapter_2\day_3\error.PNG"></img>
+
+* Type mismatch error, because the expected string was _"String"_, but you got the optional string _"String?_
+* Because the dictionary returns the value we are accessing with an _optional type_.
+* This error can be corrected by using the _force-unwrap operator_. Put the _"!"_ operator at the end of the _return_ string to unwrap the optional type and return the actual value.
+	<img src="images\chapter_2\day_3\success.PNG"></img>
