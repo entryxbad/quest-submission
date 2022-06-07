@@ -5,7 +5,7 @@
 	Blockchain is a decentralized database that is stored simultaneously on multiple computers connected to each other on the Internet.
 
 **2. Explain what a Smart Contract is.**
-	A smart contract is a computer program that tracks and enforces obligations.
+	A smart contract is a computer program that tracks and enforces obligations. Smart contracts codes are executed in the Blockchain.
 	
 **3. Explain the difference between a script and a transaction.**
 	A transaction is a blockchain storage operation that transfers cryptoassets or other information between wallets. The transaction may charge a fee depending on which blockchain you are on. 
@@ -26,5 +26,5 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 <h1>Chapter 2</h1>
 <h2>Day 1</h2>
 
-1. <img src="images\init_the_best.PNG"></img>
-2. <img src="images\script_result.PNG"></img>
+1. <img src="images\contract_JT.PNG"></img>
+2. <img src="images\script.PNG"></img>
