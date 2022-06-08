@@ -59,3 +59,25 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 * Because the dictionary returns the value we are accessing with an _optional type_.
 * This error can be corrected by using the _force-unwrap operator_. Put the _"!"_ operator at the end of the _return_ string to unwrap the optional type and return the actual value.
 	<img src="images\chapter_2\day_3\success.PNG"></img>
+
+<h2>Day 4</h2>
+
+1. **Deploy a new contract that has a Struct of your choosing.**
+	
+	<img src="images\chapter_2\day_4\contract.PNG"></img>
+
+2. **Create a dictionary or array that contains the Struct you defined.**
+
+	<img src="images\chapter_2\day_4\dictionary.PNG"></img>
+
+3. **Create a function to add to that array/dictionary.**
+
+	<img src="images\chapter_2\day_4\function.PNG"></img>
+
+4. **Add a transaction to call that function in step 3.**
+
+	<img src="images\chapter_2\day_4\transaction.PNG"></img>
+
+5. **Add a script to read the Struct you defined.**
+
+	<img src="images\chapter_2\day_4\script.PNG"></img>
