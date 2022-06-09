@@ -142,3 +142,7 @@ _Bug fixes:_
 				return <- myJacob // there is 1 here
 			}
 		}
+
+<h2>Day 2</h2>
+
+1. <img src="images\chapter_3\day_2\resources.PNG"></img>
