@@ -81,3 +81,64 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 5. **Add a script to read the Struct you defined.**
 
 	<img src="images\chapter_2\day_4\script.PNG"></img>
+
+<h1>Chapter 3</h1>
+<h2>Day 1</h2>
+
+1. **List 3 reasons why structs are different from resources.**
+
+* Resources cannot be copied only move
+* Resources cannot be overwritten
+* Resources can only be created within a contract
+
+2. **Describe a situation where a resource might be better to use than a struct.** 
+The resource is best used as an example of the NFT. Because Cadence guarantees that the resource will not be lost or overwritten unless the developer literally wants to delete it.
+
+3. **What is the keyword to make a new resource?** 
+Create
+
+4. **Can a resource be created in a script or transaction?**
+No. A resource can only be created within a contract.
+
+5. **What is the type of the resource below?**
+    	
+		pub resource Jacob {
+
+		}
+
+@Jacob
+
+6. **Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.**
+
+		pub contract Test {
+
+			// Hint: There's nothing wrong here ;)
+			pub resource Jacob {
+				pub let rocks: Bool
+				init() {
+					self.rocks = true
+				}
+			}
+
+			pub fun createJacob(): Jacob { // there is 1 here
+				let myJacob = Jacob() // there are 2 here
+				return myJacob // there is 1 here
+			}
+		}
+_Bug fixes:_
+		
+		pub contract Test {
+
+			// Hint: There's nothing wrong here ;)
+			pub resource Jacob {
+				pub let rocks: Bool
+				init() {
+					self.rocks = true
+				}
+			}
+
+			pub fun createJacob(): @Jacob { // there is 1 here
+				let myJacob <- create Jacob() // there are 2 here
+				return <- myJacob // there is 1 here
+			}
+		}
