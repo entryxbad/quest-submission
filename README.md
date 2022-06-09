@@ -146,3 +146,11 @@ _Bug fixes:_
 <h2>Day 2</h2>
 
 1. <img src="images\chapter_3\day_2\resources.PNG"></img>
+
+<h2>Day 3</h2>
+
+1. <img src="images\chapter_3\day_3\ref_func.PNG"></img>
+
+2. <img src="images\chapter_3\day_3\ref_script.PNG"></img>
+
+3. References are very useful because with them we can get information without moving resources around.
