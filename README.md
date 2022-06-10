@@ -223,3 +223,83 @@ _Corrections:_
 			log(newGreeting)
 			}
 		}
+
+<h2>Day 5</h2>
+
+1. 
+		access(all) contract SomeContract {
+			pub var testStruct: SomeStruct
+
+			pub struct SomeStruct {
+
+				//
+				// 4 Variables
+				//
+
+				pub(set) var a: String
+
+				pub var b: String
+
+				access(contract) var c: String
+
+				access(self) var d: String
+
+				//
+				// 3 Functions
+				//
+
+				pub fun publicFunc() {}
+
+				access(contract) fun contractFunc() {}
+
+				access(self) fun privateFunc() {}
+
+
+				pub fun structFunc() {
+					/**************/
+					/*** AREA 1 ***/
+					/**************/
+				}
+
+				init() {
+					self.a = "a"
+					self.b = "b"
+					self.c = "c"
+					self.d = "d"
+				}
+			}
+
+			pub resource SomeResource {
+				pub var e: Int
+
+				pub fun resourceFunc() {
+					/**************/
+					/*** AREA 2 ***/
+					/**************/
+				}
+
+				init() {
+					self.e = 17
+				}
+			}
+
+			pub fun createSomeResource(): @SomeResource {
+				return <- create SomeResource()
+			}
+
+			pub fun questsAreFun() {
+				/**************/
+				/*** AREA 3 ****/
+				/**************/
+			}
+
+			init() {
+				self.testStruct = SomeStruct()
+			}
+		}
+_Answers:_
+
+Area 1: Read/Write - a, b, c, d; Called - publicFunc, ContractFunc, privateFunc.
+Area 2: Read - a, b, c; Write - a; Called - publicFunc, ContractFunc.
+Area 3: Read - a, b, c; Write - a; Called - publicFunc, ContractFunc.
+Area 4: Read - a, b; Write - a; Called - publicFunc.
