@@ -154,3 +154,72 @@ _Bug fixes:_
 2. <img src="images\chapter_3\day_3\ref_script.PNG"></img>
 
 3. References are very useful because with them we can get information without moving resources around.
+
+<h2>Day 4</h2>
+
+1. There are 3 kinds of interfaces: resource, structure and contract. You need interfaces to restrict access to parts of the resource and to specify requirements when implementing something.
+
+2. <img src="images\chapter_3\day_4\interface.PNG"></img>
+
+3. **How would we fix this code?**
+
+		pub contract Stuff {
+
+			pub struct interface ITest {
+			pub var greeting: String
+			pub var favouriteFruit: String
+			}
+
+			// ERROR:
+			// `structure Stuff.Test does not conform 
+			// to structure interface Stuff.ITest`
+			pub struct Test: ITest {
+			pub var greeting: String
+
+			pub fun changeGreeting(newGreeting: String): String {
+				self.greeting = newGreeting
+				return self.greeting // returns the new greeting
+			}
+
+			init() {
+				self.greeting = "Hello!"
+			}
+		}
+
+			pub fun fixThis() {
+			let test: Test{ITest} = Test()
+			let newGreeting = test.changeGreeting(newGreeting: "Bonjour!") // ERROR HERE: `member of restricted type is not accessible: changeGreeting`
+			log(newGreeting)
+			}
+		}
+_Corrections:_
+
+		pub contract Stuff {
+
+			pub struct interface ITest {
+			pub var greeting: String
+			pub var favouriteFruit: String
+			pub fun changeGreeting(newGreeting: String): String // add function changeGreeting
+			}
+
+			pub struct Test: ITest {
+			pub var greeting: String
+			pub var favouriteFruit: String // add variable favouriteFruit
+
+			pub fun changeGreeting(newGreeting: String): String {
+				self.greeting = newGreeting
+				return self.greeting 
+			}
+
+			init() {
+				self.greeting = "Hello!"
+				self.favouriteFruit = "Apple" // initialize favouriteFruit
+			}
+		}
+
+			pub fun fixThis() {
+			let test: Test{ITest} =  Test()
+			let newGreeting = test.changeGreeting(newGreeting: "Bonjour!")
+			log(newGreeting)
+			}
+		}
