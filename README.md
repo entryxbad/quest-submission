@@ -303,3 +303,34 @@ Area 1: Read/Write - a, b, c, d; Called - publicFunc, ContractFunc, privateFunc.
 Area 2: Read - a, b, c; Write - a; Called - publicFunc, ContractFunc.
 Area 3: Read - a, b, c; Write - a; Called - publicFunc, ContractFunc.
 Area 4: Read - a, b; Write - a; Called - publicFunc.
+
+<h1>Chapter 4</h1>
+<h2>Day 1</h2>
+
+1. **Explain what lives inside of an account.**
+Inside the account lives a contract code, by the way there may be several. And the account vault, all your data is stored there.
+
+2. What is the difference between the _/storage/_, _/public/_, and _/private/_ paths?
+
+* _/storage/_ - only the owner of the account has access to it and no one else.  
+* _/public/_ - available to all.  
+* _/private/_ - available only to the account owner and the people to whom the owner grants access to it.  
+
+3. **What does** _.save()_ **do? What does** _.load()_ **do? What does** _.borrow()_ **do?**
+
+* _.save()_ - saves the data in the account. Accepts 2 parameters: the data to be saved and the path where the data will be saved.  
+* _.load()_ - is used to retrieve data from the storage. Accepts one parameter: the data path.  
+* _.borrow()_ - is used to get a link to the data, the data will still be in the repository, but with a link we can look at it without extracting it from there. Accepts 1 parameter: data path.  
+
+4. **Explain why we couldn't save something to our account storage inside of a script.**
+Inside the script we can't save anything, because from it we can only read what is stored. And to save we need _AuthAccount_, which is only available during the _prepare_ phase of the transaction.
+
+5. **Explain why I couldn't save something to your account.**
+Because in order to save the data in the account, the account owner must first sign it.
+
+6. **Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions**
+* <img src="images\chapter_4\day_1\contract.PNG"></img>
+
+* <img src="images\chapter_4\day_1\transaction_1.PNG"></img>
+
+* <img src="images\chapter_4\day_1\transaction_2.PNG"></img>
