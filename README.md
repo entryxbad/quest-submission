@@ -331,6 +331,6 @@ Because in order to save the data in the account, the account owner must first s
 6. **Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions**
 * <img src="images\chapter_4\day_1\contract.PNG"></img>
 
-* <img src="images\chapter_4\day_1\transaction_1.PNG"></img>
+* <img src="images\chapter_4\day_1\transaction_01.PNG"></img>
 
-* <img src="images\chapter_4\day_1\transaction_2.PNG"></img>
+* <img src="images\chapter_4\day_1\transaction_02.PNG"></img>
