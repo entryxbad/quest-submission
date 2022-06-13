@@ -356,8 +356,8 @@ Because in order to save the data in the account, the account owner must first s
 
 	* Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.
 
-	<img src="images\chapter_4\day_2\script_inter.PNG"></img>
+	<img src="images\chapter_4\day_2\script_fail.PNG"></img>
 
 	* Run the script and access something you CAN read from. Return it from the script.
 
-	<img src="images\chapter_4\day_2\script_inter.PNG"></img>
+	<img src="images\chapter_4\day_2\script_done.PNG"></img>
