@@ -334,3 +334,30 @@ Because in order to save the data in the account, the account owner must first s
 * <img src="images\chapter_4\day_1\transaction_01.PNG"></img>
 
 * <img src="images\chapter_4\day_1\transaction_02.PNG"></img>
+
+<h1>Chapter 4</h1>
+<h2>Day 2</h2>
+
+1. **What does .link() do?**
+
+    The _.link()_ function is used to refernce to _/public/_ or _/private/_ so that others can access the data.
+
+2. **In your own words (no code), explain how we can use resource interfaces to only expose certain things to the _/public/_ path.**
+
+	We can use the resource interface to give the specific fields we want to show the user.
+
+3. **Deploy a contract that contains a resource that implements a resource interface.**
+
+	<img src="images\chapter_4\day_2\contract_interface.PNG"></img>
+
+	* In a transaction, save the resource to storage and link it to the public with the restrictive interface.
+
+	<img src="images\chapter_4\day_2\transaction_inter.PNG"></img>
+
+	* Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.
+
+	<img src="images\chapter_4\day_2\script_inter.PNG"></img>
+
+	* Run the script and access something you CAN read from. Return it from the script.
+
+	<img src="images\chapter_4\day_2\script_inter.PNG"></img>
