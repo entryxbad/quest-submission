@@ -352,7 +352,7 @@ Because in order to save the data in the account, the account owner must first s
 
 	* In a transaction, save the resource to storage and link it to the public with the restrictive interface.
 
-	<img src="images\chapter_4\day_2\transaction_inter.PNG"></img>
+	<img src="images\chapter_4\day_2\transaction_template.PNG"></img>
 
 	* Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.
 
@@ -360,4 +360,4 @@ Because in order to save the data in the account, the account owner must first s
 
 	* Run the script and access something you CAN read from. Return it from the script.
 
-	<img src="images\chapter_4\day_2\script_done.PNG"></img>
+	<img src="images\chapter_4\day_2\script_value.PNG"></img>
