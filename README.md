@@ -335,7 +335,6 @@ Because in order to save the data in the account, the account owner must first s
 
 * <img src="images\chapter_4\day_1\transaction_02.PNG"></img>
 
-<h1>Chapter 4</h1>
 <h2>Day 2</h2>
 
 1. **What does .link() do?**
@@ -361,3 +360,15 @@ Because in order to save the data in the account, the account owner must first s
 	* Run the script and access something you CAN read from. Return it from the script.
 
 	<img src="images\chapter_4\day_2\script_value.PNG"></img>
+
+	<h2>Day 3</h2>
+
+	1. **Why did we add a Collection to this contract? List the two main reasons.**
+		We built the collection to solve 2 problems: first, we would have to remember the storage paths for each NFT; second, nobody could send us NFTs because only the account holder could store NFTs in his account's storage.
+
+	2. **What do you have to do if you have resources "nested" inside of another resource? ("Nested resources")**
+		In Cadence, when you have nested resources you must always call the _destroy_ function to remove internal resources.
+
+	3. **Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
+		*	No, you can't let every user mint NFTs whenever they want. This can probably be prevented by using interface resources.
+		*	I think not. Moving data around all the time is not a good idea and probably not the safest. You can use links to read the information.
