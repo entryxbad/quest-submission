@@ -372,3 +372,87 @@ Because in order to save the data in the account, the account owner must first s
 	3. **Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
 		*	No, you can't let every user mint NFTs whenever they want. This can probably be prevented by using interface resources.
 		*	I think not. Moving data around all the time is not a good idea and probably not the safest. You can use links to read the information.
+
+	<h2>Day 4</h2>
+
+	1. **Add comments to every single resource or function explaining what it's doing in your own words.**
+
+			pub contract CryptoPoops {
+			pub var totalSupply: UInt64
+
+			// This is an NFT resource that contains a name,
+			// favouriteFood, and luckyNumber
+			pub resource NFT {
+				pub let id: UInt64
+
+				pub let name: String
+				pub let favouriteFood: String
+				pub let luckyNumber: Int
+
+				init(_name: String, _favouriteFood: String, _luckyNumber: Int) {
+				self.id = self.uuid
+
+				self.name = _name
+				self.favouriteFood = _favouriteFood
+				self.luckyNumber = _luckyNumber
+				}
+			}
+
+			// This is a resource interface that allows us to... you get the point.
+			pub resource interface CollectionPublic {
+				pub fun deposit(token: @NFT)
+				pub fun getIDs(): [UInt64]
+				pub fun borrowNFT(id: UInt64): &NFT
+			}
+			// The Collection resource is a collection of links to the NFT id viewer resource interface.
+			pub resource Collection: CollectionPublic {
+				pub var ownedNFTs: @{UInt64: NFT}
+				// A function for crediting NFTs to an account.
+				pub fun deposit(token: @NFT) {
+				self.ownedNFTs[token.id] <-! token
+				}
+				// NFT withdraw function.
+				pub fun withdraw(withdrawID: UInt64): @NFT {
+				let nft <- self.ownedNFTs.remove(key: withdrawID) 
+						?? panic("This NFT does not exist in this Collection.")
+				return <- nft
+				}
+				// The function returns the id of all NFTs of the owner.
+				pub fun getIDs(): [UInt64] {
+				return self.ownedNFTs.keys
+				}
+				// This function returns a reference to the NFT.
+				pub fun borrowNFT(id: UInt64): &NFT {
+				return (&self.ownedNFTs[id] as &NFT?)!
+				}
+				// Initializing a collection.
+				init() {
+				self.ownedNFTs <- {}
+				}
+				// The function of destroying a nested resource.
+				destroy() {
+				destroy self.ownedNFTs
+				}
+			}
+			// Creating an empty collection to store all NFTs.
+			pub fun createEmptyCollection(): @Collection {
+				return <- create Collection()
+			}
+			// A resource that allows the owner who deploys a contract to mint an NFT.
+			pub resource Minter {
+				// Function for the mint NFT.
+				pub fun createNFT(name: String, favouriteFood: String, luckyNumber: Int): @NFT {
+				return <- create NFT(_name: name, _favouriteFood: favouriteFood, _luckyNumber: luckyNumber)
+				}
+				The function that creates the minter role.
+				pub fun createMinter(): @Minter {
+				return <- create Minter()
+				}
+
+			}
+				// Initialize the contract and saves the role, inter in the storage.
+				init() {
+					self.totalSupply = 0
+					self.account.save(<- create Minter(), to: /storage/Minter)
+				}
+			}
