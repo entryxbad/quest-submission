@@ -310,7 +310,7 @@ Area 4: Read - a, b; Write - a; Called - publicFunc.
 1. **Explain what lives inside of an account.**
 Inside the account lives a contract code, by the way there may be several. And the account vault, all your data is stored there.
 
-2. What is the difference between the _/storage/_, _/public/_, and _/private/_ paths?
+2. **What is the difference between the _/storage/_, _/public/_, and _/private/_ paths?**
 
 * _/storage/_ - only the owner of the account has access to it and no one else.  
 * _/public/_ - available to all.  
@@ -363,19 +363,19 @@ Because in order to save the data in the account, the account owner must first s
 
 	<h2>Day 3</h2>
 
-	1. **Why did we add a Collection to this contract? List the two main reasons.**
-		We built the collection to solve 2 problems: first, we would have to remember the storage paths for each NFT; second, nobody could send us NFTs because only the account holder could store NFTs in his account's storage.
+1. **Why did we add a Collection to this contract? List the two main reasons.**
+	We built the collection to solve 2 problems: first, we would have to remember the storage paths for each NFT; second, nobody could send us NFTs because only the account holder could store NFTs in his account's storage.
 
-	2. **What do you have to do if you have resources "nested" inside of another resource? ("Nested resources")**
-		In Cadence, when you have nested resources you must always call the _destroy_ function to remove internal resources.
+2. **What do you have to do if you have resources "nested" inside of another resource? ("Nested resources")**
+	In Cadence, when you have nested resources you must always call the _destroy_ function to remove internal resources.
 
-	3. **Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
-		*	No, you can't let every user mint NFTs whenever they want. This can probably be prevented by using interface resources.
-		*	I think not. Moving data around all the time is not a good idea and probably not the safest. You can use links to read the information.
+3. **Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
+	*	No, you can't let every user mint NFTs whenever they want. This can probably be prevented by using interface resources.
+	*	I think not. Moving data around all the time is not a good idea and probably not the safest. You can use links to read the information.
 
 	<h2>Day 4</h2>
 
-	1. **Add comments to every single resource or function explaining what it's doing in your own words.**
+1. **Add comments to every single resource or function explaining what it's doing in your own words.**
 
 			pub contract CryptoPoops {
 			pub var totalSupply: UInt64
@@ -456,3 +456,26 @@ Because in order to save the data in the account, the account owner must first s
 					self.account.save(<- create Minter(), to: /storage/Minter)
 				}
 			}
+
+<h1>Chapter 5</h1>
+<h2>Day 1</h2>
+
+1. **Describe what an event is, and why it might be useful to a client.**
+	An event is the smart contract's way of notifying the outside world that something has happened. It is useful because you can use an event to implement totalSupply updates, so users will know how much NFT is left.
+
+2. **Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.**
+	<img src="images\chapter_5\day_1\deploy_event.PNG"></img>
+
+3. **Using the contract in step 2, add some pre conditions and post conditions to your contract to get used to writing them out.**
+	<img src="images\chapter_5\day_1\post_pre.PNG"></img>
+
+4. **For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.**
+
+	1. Yes, because the name Jacob is five characters long.
+		<img src="images\chapter_5\day_1\numberOne.PNG"></img> 
+		
+	2. Yes, because there are more than 0 characters in the _name_ variable
+		<img src="images\chapter_5\day_1\numberTwo.PNG"></img> 
+
+	3. No, because after the first run _self.number_ will be 1.
+		<img src="images\chapter_5\day_1\numberThree.PNG"></img> 
