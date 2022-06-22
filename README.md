@@ -467,7 +467,7 @@ Because in order to save the data in the account, the account owner must first s
 	<img src="images\chapter_5\day_1\deploy_event.PNG"></img>
 
 3. **Using the contract in step 2, add some pre conditions and post conditions to your contract to get used to writing them out.**
-	<img src="images\chapter_5\day_1\post_pre.PNG"></img>
+	<img src="images\chapter_5\day_1\pre_post.PNG"></img>
 
 4. **For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.**
 
