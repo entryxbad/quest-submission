@@ -489,48 +489,26 @@ Because in order to save the data in the account, the account owner must first s
 	Anything that's edible and doesn't have onions in it :)
 
 3. **Please fix this code (Hint: There are two things wrong)**
-*	<img src="images\chapter_5\day_2\q1.PNG"></img>
-	* 
-				pub contract interface ITest {
-				pub var number: Int
-				
-				pub fun updateNumber(newNumber: Int) {
-					pre {
-					newNumber >= 0: "We don't like negative numbers for some reason. We're mean."
-					}
-					post {
-					self.number == newNumber: "Didn't update the number to be the new number."
-					}
-				}
-				// The interface was implemented incorrectly.
-				pub resource Stuff:ITest.IStuff {
-					pub var favouriteActivity: String
-				}
-			}
+* <img src="images\chapter_5\day_2\q1.PNG"></img>
 
 * <img src="images\chapter_5\day_2\q2.PNG"></img>
-	*
-				// The contract must implement ITest.
-				pub contract Test: ITest {
-				pub var number: Int
-				
-				pub fun updateNumber(newNumber: Int) {
-					self.number = 5
-				}
-
-				pub resource interface IStuff {
-					pub var favouriteActivity: String
-				}
-
-				pub resource Stuff: IStuff {
-					pub var favouriteActivity: String
-
-					init() {
-					self.favouriteActivity = "Playing League of Legends."
-					}
-				}
-
+	
+			import ITest from 0x01
+			// Defining the interface.
+			pub contract Test : ITest {
+			pub var number: Int
+			
+			pub fun updateNumber(newNumber: Int) {
+				self.number = 5
+			}
+			// Implementing the interface.
+			pub resource Stuff: ITest.IStuff {
+				pub var favouriteActivity: String
 				init() {
-					self.number = 0
+				self.favouriteActivity = "Playing League of Legends."
 				}
 			}
+			init() {
+				self.number = 0
+			}
+		}
