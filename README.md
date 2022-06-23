@@ -92,13 +92,16 @@ These 5 pillars allow even more developers to create secure, easy-to-read and ac
 * Resources can only be created within a contract
 
 2. **Describe a situation where a resource might be better to use than a struct.** 
-The resource is best used as an example of the NFT. Because Cadence guarantees that the resource will not be lost or overwritten unless the developer literally wants to delete it.
+
+	The resource is best used as an example of the NFT. Because Cadence guarantees that the resource will not be lost or overwritten unless the developer literally wants to delete it.
 
 3. **What is the keyword to make a new resource?** 
-Create
+
+	Create
 
 4. **Can a resource be created in a script or transaction?**
-No. A resource can only be created within a contract.
+
+	No. A resource can only be created within a contract.
 
 5. **What is the type of the resource below?**
     	
@@ -308,7 +311,8 @@ Area 4: Read - a, b; Write - a; Called - publicFunc.
 <h2>Day 1</h2>
 
 1. **Explain what lives inside of an account.**
-Inside the account lives a contract code, by the way there may be several. And the account vault, all your data is stored there.
+
+	Inside the account lives a contract code, by the way there may be several. And the account vault, all your data is stored there.
 
 2. **What is the difference between the _/storage/_, _/public/_, and _/private/_ paths?**
 
@@ -323,10 +327,12 @@ Inside the account lives a contract code, by the way there may be several. And t
 * _.borrow()_ - is used to get a link to the data, the data will still be in the repository, but with a link we can look at it without extracting it from there. Accepts 1 parameter: data path.  
 
 4. **Explain why we couldn't save something to our account storage inside of a script.**
-Inside the script we can't save anything, because from it we can only read what is stored. And to save we need _AuthAccount_, which is only available during the _prepare_ phase of the transaction.
+
+	Inside the script we can't save anything, because from it we can only read what is stored. And to save we need _AuthAccount_, which is only available during the _prepare_ phase of the transaction.
 
 5. **Explain why I couldn't save something to your account.**
-Because in order to save the data in the account, the account owner must first sign it.
+
+	Because in order to save the data in the account, the account owner must first sign it.
 
 6. **Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions**
 * <img src="images\chapter_4\day_1\contract.PNG"></img>
@@ -364,12 +370,15 @@ Because in order to save the data in the account, the account owner must first s
 	<h2>Day 3</h2>
 
 1. **Why did we add a Collection to this contract? List the two main reasons.**
+	
 	We built the collection to solve 2 problems: first, we would have to remember the storage paths for each NFT; second, nobody could send us NFTs because only the account holder could store NFTs in his account's storage.
 
 2. **What do you have to do if you have resources "nested" inside of another resource? ("Nested resources")**
+	
 	In Cadence, when you have nested resources you must always call the _destroy_ function to remove internal resources.
 
 3. **Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
+	
 	*	No, you can't let every user mint NFTs whenever they want. This can probably be prevented by using interface resources.
 	*	I think not. Moving data around all the time is not a good idea and probably not the safest. You can use links to read the information.
 
@@ -461,6 +470,7 @@ Because in order to save the data in the account, the account owner must first s
 <h2>Day 1</h2>
 
 1. **Describe what an event is, and why it might be useful to a client.**
+	
 	An event is the smart contract's way of notifying the outside world that something has happened. It is useful because you can use an event to implement totalSupply updates, so users will know how much NFT is left.
 
 2. **Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.**
@@ -483,9 +493,11 @@ Because in order to save the data in the account, the account owner must first s
 <h2>Day 2</h2>
 
 1. **Explain why standards can be beneficial to the Flow ecosystem.**
+	
 	Because the standards provide a single way to call multiple functions. Since they are of the same type, you only need to import the standard to call these functions.
 
 2. **What is YOUR favourite food?**
+	
 	Anything that's edible and doesn't have onions in it :)
 
 3. **Please fix this code (Hint: There are two things wrong)**
@@ -499,7 +511,7 @@ Because in order to save the data in the account, the account owner must first s
 			pub var number: Int
 			
 			pub fun updateNumber(newNumber: Int) {
-				self.number = 5
+				self.number = newNumber
 			}
 			// Implementing the interface.
 			pub resource Stuff: ITest.IStuff {
