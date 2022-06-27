@@ -2,12 +2,15 @@
 <h2>Day 1</h2>
 
 **1. Explain what the Blockchain is in your own words.**
+	
 	Blockchain is a decentralized database that is stored simultaneously on multiple computers connected to each other on the Internet.
 
 **2. Explain what a Smart Contract is.**
+
 	A smart contract is a computer program that tracks and enforces obligations. Smart contracts codes are executed in the Blockchain.
 	
 **3. Explain the difference between a script and a transaction.**
+
 	A transaction is a blockchain storage operation that transfers cryptoassets or other information between wallets. The transaction may charge a fee depending on which blockchain you are on. 
 	The script is used to browse the data in the blockhain, it does not change it. And unlike a transaction, it doesn't charge any fees because it costs nothing.
 
@@ -524,3 +527,255 @@ Area 4: Read - a, b; Write - a; Called - publicFunc.
 				self.number = 0
 			}
 		}
+
+<h2>Day 3</h2>
+
+1. **What does "force casting" with as! do? Why is it useful in our Collection?**
+
+	The force cast _(as!)_ operator forcibly turns a universal type into a more specific type, and if it doesn't work, it panics. This is useful to make sure we're using the right token, otherwise there will be panic.
+
+2. **What does auth do? When do we use it?**
+
+	If we want to pass a link we need to have an authorized link, we can get it with the _auth_ keyword.
+
+3. **This last quest will be your most difficult yet. Take this contract:**
+
+			import NonFungibleToken from 0x02
+			pub contract CryptoPoops: NonFungibleToken {
+			pub var totalSupply: UInt64
+
+			pub event ContractInitialized()
+			pub event Withdraw(id: UInt64, from: Address?)
+			pub event Deposit(id: UInt64, to: Address?)
+
+			pub resource NFT: NonFungibleToken.INFT {
+				pub let id: UInt64
+
+				pub let name: String
+				pub let favouriteFood: String
+				pub let luckyNumber: Int
+
+				init(_name: String, _favouriteFood: String, _luckyNumber: Int) {
+				self.id = self.uuid
+
+				self.name = _name
+				self.favouriteFood = _favouriteFood
+				self.luckyNumber = _luckyNumber
+				}
+			}
+
+			pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic {
+				pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
+
+				pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT {
+				let nft <- self.ownedNFTs.remove(key: withdrawID) 
+						?? panic("This NFT does not exist in this Collection.")
+				emit Withdraw(id: nft.id, from: self.owner?.address)
+				return <- nft
+				}
+
+				pub fun deposit(token: @NonFungibleToken.NFT) {
+				let nft <- token as! @NFT
+				emit Deposit(id: nft.id, to: self.owner?.address)
+				self.ownedNFTs[nft.id] <-! nft
+				}
+
+				pub fun getIDs(): [UInt64] {
+				return self.ownedNFTs.keys
+				}
+
+				pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
+				return (&self.ownedNFTs[id] as &NonFungibleToken.NFT?)!
+				}
+
+				init() {
+				self.ownedNFTs <- {}
+				}
+
+				destroy() {
+				destroy self.ownedNFTs
+				}
+			}
+
+			pub fun createEmptyCollection(): @NonFungibleToken.Collection {
+				return <- create Collection()
+			}
+
+			pub resource Minter {
+
+				pub fun createNFT(name: String, favouriteFood: String, luckyNumber: Int): @NFT {
+				return <- create NFT(_name: name, _favouriteFood: favouriteFood, _luckyNumber: luckyNumber)
+				}
+
+				pub fun createMinter(): @Minter {
+				return <- create Minter()
+				}
+
+			}
+
+			init() {
+				self.totalSupply = 0
+				emit ContractInitialized()
+				self.account.save(<- create Minter(), to: /storage/Minter)
+			}
+		}
+
+_Answer:_
+
+		import NonFungibleToken from 0x02
+		pub contract CryptoPoops: NonFungibleToken {
+		pub var totalSupply: UInt64
+
+		pub event ContractInitialized()
+		pub event Withdraw(id: UInt64, from: Address?)
+		pub event Deposit(id: UInt64, to: Address?)
+
+		pub resource NFT: NonFungibleToken.INFT {
+			pub let id: UInt64
+
+			pub let name: String
+			pub let favouriteFood: String
+			pub let luckyNumber: Int
+
+			init(_name: String, _favouriteFood: String, _luckyNumber: Int) {
+			self.id = self.uuid
+
+			self.name = _name
+			self.favouriteFood = _favouriteFood
+			self.luckyNumber = _luckyNumber
+			}
+		}
+
+			pub resource interface IPublicCollection {
+				pub fun deposit(token: @NonFungibleToken.NFT)
+				pub fun getIDs(): [UInt64]
+				pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
+				pub fun borrowAuthNFT(id: UInt64): &NFT
+		}
+
+		pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, IPublicCollection {
+			pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
+
+			pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT {
+			let nft <- self.ownedNFTs.remove(key: withdrawID) 
+					?? panic("This NFT does not exist in this Collection.")
+			emit Withdraw(id: nft.id, from: self.owner?.address)
+			return <- nft
+			}
+
+			pub fun deposit(token: @NonFungibleToken.NFT) {
+			let nft <- token as! @NFT
+			emit Deposit(id: nft.id, to: self.owner?.address)
+			self.ownedNFTs[nft.id] <-! nft
+			}
+
+			pub fun getIDs(): [UInt64] {
+			return self.ownedNFTs.keys
+			}
+
+			pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
+			return (&self.ownedNFTs[id] as &NonFungibleToken.NFT?)!
+			}
+
+			pub fun borrowAuthNFT(id: UInt64): &NFT {
+			let ref = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
+			return ref as! &NFT
+			}
+
+			init() {
+			self.ownedNFTs <- {}
+			}
+
+			destroy() {
+			destroy self.ownedNFTs
+			}
+		}
+
+		pub fun createEmptyCollection(): @NonFungibleToken.Collection {
+			return <- create Collection()
+		}
+
+		pub resource Minter {
+
+			pub fun createNFT(name: String, favouriteFood: String, luckyNumber: Int): @NFT {
+			return <- create NFT(_name: name, _favouriteFood: favouriteFood, _luckyNumber: luckyNumber)
+			}
+
+			pub fun createMinter(): @Minter {
+			return <- create Minter()
+			}
+
+		}
+
+		init() {
+			self.totalSupply = 0
+			emit ContractInitialized()
+			self.account.save(<- create Minter(), to: /storage/Minter)
+		}
+	}
+
+_Script to get ID:_
+
+		import CryptoPoops from 0x01
+		import NonFungibleToken from 0x02
+
+		pub fun main(address: Address): [UInt64] {
+		let myReference = getAccount(address).getCapability(/public/CryptoPoopsCollection)
+								.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>()
+									?? panic("This collection does not exist!")
+		return myReference.getIDs()
+
+
+		}
+
+_Transaction create collection:_
+
+		import CryptoPoops from 0x01
+		import NonFungibleToken from 0x02
+
+		transaction {
+		prepare(acct: AuthAccount) {
+			acct.save(<- CryptoPoops.createEmptyCollection(), to: /storage/CryptoPoopsCollection)
+			acct.link<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic, CryptoPoops.MyCollectionPublic}>(/public/CryptoPoopsCollection, target: /storage/CryptoPoopsCollection)
+		}
+
+		execute {
+			log("Collection created.")
+		}
+	}
+
+_NFT mint:_
+
+		import CryptoPoops from 0x01
+		import NonFungibleToken from 0x02
+
+		transaction(recipient: Address) {
+
+			prepare(acct: AuthAccount) {
+				let nftMinter = acct.borrow<&CryptoPoops.Minter>(from: /storage/Minter)!
+
+				let getReference = getAccount(recipient).getCapability(/public/CryptoPoopsCollection)
+										.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>()
+										?? panic ("You don't have a collection.")
+				
+				getReference.deposit(token: <- nftMinter.createNFT())
+			}
+
+			execute {
+				log("You mint NFT!")
+			}
+		}
+
+_Get metadata:_
+
+		import NonFungibleToken from 0x01
+		import CryptoPoops from 0x02
+
+		pub fun main(account: Address, id: UInt64): String {
+			let myReference = getAccount(account).getCapability(/public/CryptoPoopsCollection)
+						.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic, CryptoPoops.CustomCollectionPublic}>()
+						?? panic("Account don't have a collection")
+
+			return myReference.borrowAuthNFT(id: id).name
+
+		}                              
