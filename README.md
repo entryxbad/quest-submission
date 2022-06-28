@@ -536,7 +536,7 @@ Area 4: Read - a, b; Write - a; Called - publicFunc.
 
 2. **What does auth do? When do we use it?**
 
-	If we want to pass a link we need to have an authorized link, we can get it with the _auth_ keyword.
+	The auth keyword is required when providing References to resources that can or are to be downcasted to a more specific reference down the road. Only "authorized" references can be downcasted to more specific ones. This is what the _auth_ keyword is for.
 
 3. **This last quest will be your most difficult yet. Take this contract:**
 
@@ -736,7 +736,7 @@ _Transaction create collection:_
 		transaction {
 		prepare(acct: AuthAccount) {
 			acct.save(<- CryptoPoops.createEmptyCollection(), to: /storage/CryptoPoopsCollection)
-			acct.link<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic, CryptoPoops.MyCollectionPublic}>(/public/CryptoPoopsCollection, target: /storage/CryptoPoopsCollection)
+			acct.link<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>(/public/CryptoPoopsCollection, target: /storage/CryptoPoopsCollection)
 		}
 
 		execute {
@@ -758,7 +758,7 @@ _NFT mint:_
 										.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>()
 										?? panic ("You don't have a collection.")
 				
-				getReference.deposit(token: <- nftMinter.createNFT())
+				getReference.deposit(token: <- nftMinter.createNFT(favouriteFood: favouriteFood, luckyNumber: luckyNumber))
 			}
 
 			execute {
@@ -773,7 +773,7 @@ _Get metadata:_
 
 		pub fun main(account: Address, id: UInt64): String {
 			let myReference = getAccount(account).getCapability(/public/CryptoPoopsCollection)
-						.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic, CryptoPoops.CustomCollectionPublic}>()
+						.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>()
 						?? panic("Account don't have a collection")
 
 			return myReference.borrowAuthNFT(id: id).name
