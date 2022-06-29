@@ -749,7 +749,7 @@ _NFT mint:_
 		import CryptoPoops from 0x01
 		import NonFungibleToken from 0x02
 
-		transaction(recipient: Address) {
+		transaction(recipient: Address, name: String, favouriteFood: String, luckyNumber: Int) {
 
 			prepare(acct: AuthAccount) {
 				let nftMinter = acct.borrow<&CryptoPoops.Minter>(from: /storage/Minter)!
@@ -758,7 +758,7 @@ _NFT mint:_
 										.borrow<&CryptoPoops.Collection{NonFungibleToken.CollectionPublic}>()
 										?? panic ("You don't have a collection.")
 				
-				getReference.deposit(token: <- nftMinter.createNFT(favouriteFood: favouriteFood, luckyNumber: luckyNumber))
+				getReference.deposit(token: <- nftMinter.createNFT(name: name, favouriteFood: favouriteFood, luckyNumber: luckyNumber))
 			}
 
 			execute {
